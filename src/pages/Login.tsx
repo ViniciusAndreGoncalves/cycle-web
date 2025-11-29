@@ -34,7 +34,7 @@ export function Login() {
           </div>
         </CardContent>
         <CardFooter className="flex flex-col gap-4">
-          <Button className="w-full bg-white text-black hover:bg-zinc-200">
+          <Button className="w-full bg-white text-black hover:bg-zinc-200 rounded">
             Entrar
           </Button>
           <div className="text-center text-sm text-zinc-400">
