@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Login } from "@/pages/Login";
 import { Home } from "@/pages/Home";
+import { Register } from "./pages/Register";
+import { Dashboard } from "@/pages/Dashboard"
 
 function App() {
   return (
@@ -12,8 +14,11 @@ function App() {
         {/* Rota de Login separada */}
         <Route path="/login" element={<Login />} />
         
-        {/* Placeholder para Registro */}
-        <Route path="/register" element={<h1 className="text-white p-10">Criar Conta (Em breve)</h1>} />
+        {/* Rota Registro */}
+        <Route path="/register" element={< Register />} />
+
+        {/* Rota Dashboard (tela de usuário) */}
+        <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   )
