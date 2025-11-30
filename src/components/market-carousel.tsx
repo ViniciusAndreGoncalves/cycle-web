@@ -8,66 +8,94 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel"
-import { ArrowUpRight, ArrowDownRight } from "lucide-react"
+import { ArrowUpRight, ArrowDownRight, Minus } from "lucide-react"
 
-// Dados falsos para simular a API (depois virão do Back-end)
-const marketData = [
-  { symbol: "PETR4", name: "Petrobras", price: "R$ 36,50", change: 2.5, type: "up" },
-  { symbol: "VALE3", name: "Vale", price: "R$ 62,10", change: -1.2, type: "down" },
-  { symbol: "BTC", name: "Bitcoin", price: "$ 68.000", change: 5.4, type: "up" },
-  { symbol: "ETH", name: "Ethereum", price: "$ 3.500", change: 1.1, type: "up" },
-  { symbol: "ITUB4", name: "Itaú", price: "R$ 33,20", change: 0.5, type: "up" },
-  { symbol: "MGLU3", name: "Magalu", price: "R$ 1,80", change: -4.0, type: "down" },
-  { symbol: "WEGE3", name: "Weg", price: "R$ 40,00", change: 0.0, type: "neutral" },
+// Dados falsos para simular a API
+const staticStocks = [
+  { symbol: "PETR4", name: "Petrobras", price: 36.50, change: 2.5},
+  { symbol: "VALE3", name: "Vale", price: 62.10, change: -1.2 },
+  { symbol: "ITUB4", name: "Itaú", price: 33.20, change: 0.5 },
+  { symbol: "MGLU3", name: "Magalu", price: 1.80, change: -4.0 },
+  { symbol: "WEGE3", name: "Weg", price: 40.00, change: 0.0 },
 ]
 
-export function MarketCarousel() {
-  // Configuração do Autoplay (Delay de 2 segundos)
+interface MarketCarouselProps {
+  cryptos?: any[]; // Interrogação protege caso esteja vazio as Criptos
+}
+
+export function MarketCarousel({ cryptos = [] }: MarketCarouselProps) {
+  // Configuração do Autoplay (Delay de 3 segundos)
   const plugin = React.useRef(
-    Autoplay({ delay: 2000, stopOnInteraction: true })
+    Autoplay({ delay: 3000, stopOnInteraction: true })
   )
 
+  const formattedCryptos = cryptos.map((coin: any) => ({
+    symbol: coin.symbol.toUpperCase(),
+    name: coin.name,
+    price: coin.current_price,
+    change: coin.price_change_percentage_24h,
+    isCrypto: true // Indica que é cripto (Marcador extra)
+  }))
+
+  const displayData = [...staticStocks, ...formattedCryptos]
+
   return (
-    <div className="w-full px-10"> {/* Padding para as setas não ficarem coladas */}
+    <div className="w-full px-4 md:px-10"> {/* Padding ajustado para mobile */}
       <Carousel
         plugins={[plugin.current]}
         opts={{
-          align: "start",
+          align: "center",
           loop: true,
         }}
         className="w-full"
       >
         <CarouselContent>
-          {marketData.map((asset, index) => (
-            // MD:basis-1/3 = Mostra 3 itens em telas médias
-            // LG:basis-1/5 = Mostra 5 itens em telas grandes
-            <CarouselItem key={index} className="basis-1/2 md:basis-1/3 lg:basis-1/5">
+          {displayData.map((asset, index) => (
+            // Ajuste responsivo: no celular (padrão) ocupa 60%, em tablet 1/3, em PC 1/5
+            <CarouselItem key={index} className="basis-[60%] sm:basis-1/2 md:basis-1/3 lg:basis-1/5 pl-2 md:pl-4">
               <div className="p-1">
                 <Card className="bg-zinc-900 border-zinc-800">
-                  <CardContent className="flex flex-col items-center justify-center p-4">
-                    <span className="text-lg font-bold text-white">{asset.symbol}</span>
-                    <span className="text-xs text-zinc-400">{asset.name}</span>
+                  {/* AQUI ESTÁ A CORREÇÃO PRINCIPAL NO CSS 👇 */}
+                  <CardContent className="flex flex-col items-center justify-between p-3 h-[120px]"> 
                     
-                    <div className="mt-2 flex items-center gap-2">
-                      <span className="text-sm font-medium text-zinc-200">{asset.price}</span>
+                    {/* 1. Título e Nome (Parte de Cima) */}
+                    <div className="flex flex-col items-center w-full">
+                      <span className="text-base md:text-lg font-bold text-white">
+                        {asset.symbol}
+                      </span>
+                      {/* Truncate corta o texto se for muito longo (Ex: "Matic Networ...") */}
+                      <span className="text-[10px] md:text-xs text-zinc-400 truncate w-full text-center max-w-[120px]">
+                        {asset.name}
+                      </span>
+                    </div>
+                    
+                    {/* 2. Preço e Variação (Parte de Baixo) */}
+                    <div className="flex flex-col items-center gap-1 w-full">
+                      {/* whitespace-nowrap IMPEDE que o preço quebre linha e suba em cima do título */}
+                      <span className="text-sm md:text-base font-medium text-zinc-200 whitespace-nowrap">
+                        {Number(asset.price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
+                      </span>
                       
-                      <div className={`flex items-center text-xs font-bold ${
-                        asset.type === 'up' ? 'text-emerald-500' : 
-                        asset.type === 'down' ? 'text-red-500' : 'text-zinc-500'
+                      <div className={`flex items-center text-[10px] md:text-xs font-bold ${
+                        asset.change > 0 ? 'text-emerald-500' : 
+                        asset.change < 0 ? 'text-red-500' : 'text-zinc-500'
                       }`}>
-                        {asset.type === 'up' && <ArrowUpRight className="h-3 w-3 mr-1" />}
-                        {asset.type === 'down' && <ArrowDownRight className="h-3 w-3 mr-1" />}
-                        {asset.change}%
+                        {asset.change > 0 && <ArrowUpRight className="h-3 w-3 mr-1" />}
+                        {asset.change < 0 && <ArrowDownRight className="h-3 w-3 mr-1" />}
+                        {asset.change === 0 && <Minus className="h-3 w-3 mr-1" />}
+                        {asset.change.toFixed(2)}%
                       </div>
                     </div>
+
                   </CardContent>
                 </Card>
               </div>
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="bg-zinc-800 text-white border-zinc-700 hover:bg-zinc-700 hover:text-emerald-500" />
-        <CarouselNext className="bg-zinc-800 text-white border-zinc-700 hover:bg-zinc-700 hover:text-emerald-500" />
+        {/* Setas somem no mobile para não atrapalhar */}
+        <CarouselPrevious className="hidden md:flex bg-zinc-800 text-white border-zinc-700 hover:bg-zinc-700 hover:text-emerald-500" />
+        <CarouselNext className="hidden md:flex bg-zinc-800 text-white border-zinc-700 hover:bg-zinc-700 hover:text-emerald-500" />
       </Carousel>
     </div>
   )
