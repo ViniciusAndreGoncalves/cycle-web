@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Login } from "@/pages/Login";
 import { Home } from "@/pages/Home";
+import { Register } from "./pages/Register";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         
         {/* Placeholder para Registro */}
-        <Route path="/register" element={<h1 className="text-white p-10">Criar Conta (Em breve)</h1>} />
+        <Route path="/register" element={< Register />} />
       </Routes>
     </BrowserRouter>
   )
