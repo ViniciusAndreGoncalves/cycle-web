@@ -11,7 +11,7 @@ import { ReactNode } from "react";
 function PrivateRoute({ children }: { children: ReactNode }) {
   const token = localStorage.getItem("auth_token");
   
-  // 3. Adicionamos o Fragment < > para garantir o retorno seguro
+  // Fragment < > para garantir o retorno seguro
   return token ? <>{children}</> : <Navigate to="/login" />;
 }
 
@@ -29,7 +29,11 @@ function App() {
         <Route path="/register" element={<Register />} />
 
         {/* Rota Dashboard (tela de usuário) */}
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/dashboard" element={
+            <PrivateRoute>
+                <Dashboard />
+            </PrivateRoute>
+        } />
 
         {/* rota de Perfil de usuário*/}
         <Route path="/profile" element={
@@ -41,7 +45,7 @@ function App() {
         {/* rota da carteira do usuário*/}
         <Route path="/carteira" element={
             <PrivateRoute>
-                <Wallet /> {/* <--- AQUI ESTÁ A ROTA QUE FALTAVA */}
+                <Wallet />
             </PrivateRoute>
         } />
       </Routes>

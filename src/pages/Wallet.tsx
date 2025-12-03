@@ -1,13 +1,10 @@
 import { useEffect, useState } from "react";
-import { Navbar } from "@/components/ui/Navbar"; // Verifique se é components/Navbar ou ui/Navbar
+import { Navbar } from "@/components/ui/Navbar";
 import { api } from "@/lib/axios";
-import { Card } from "@/components/ui/card"; // Importei o Card só para o fallback
 import { AllocationChart } from "@/components/dashboard/allocation-chart";
 import { AssetList } from "@/components/dashboard/asset-list";
 import { Loader2, PieChart } from "lucide-react";
-// IMPORTANTE: Importe o novo modal
 import { AddTransactionModal } from "@/components/dashboard/add-transaction-modal";
-import { useAuth } from "@/hooks/useAuth";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
@@ -69,7 +66,7 @@ export function Wallet() {
                     ) : (
                         <div className="text-center text-zinc-500 py-10 border border-dashed border-zinc-800 rounded-lg">
                             <p className="mb-4">Sua carteira está vazia.</p>
-                            {/* Se estiver vazia, mostramos o botão aqui também para facilitar */}
+                            {/* Se estiver vazia, mostra o botão aqui também para facilitar */}
                             <AddTransactionModal onSuccess={loadData} />
                         </div>
                     )}

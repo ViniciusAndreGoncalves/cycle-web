@@ -230,13 +230,13 @@ export function Register() {
                   disabled={isLoading}
                 >
                   {isLoading ? (
-                    // 2. SE ESTIVER CARREGANDO: Mostra o Spinner girando
+                    // SE ESTIVER CARREGANDO: Mostra o Spinner girando
                     <>
                       <Loader2 className="mr-2 h-4 w-4 animate-spin" />
                       Cadastrando...
                     </>
                   ) : (
-                    // 3. SE NÃO: Mostra o texto normal
+                    // SE NÃO: Mostra o texto normal
                     "Cadastrar"
                   )}
                 </Button>
