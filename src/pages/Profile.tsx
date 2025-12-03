@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Loader2, Trash2, Save } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -29,7 +29,6 @@ import {
 
 export function Profile() {
   const { user, login, logout } = useAuth();
-  const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
   const [formData, setFormData] = useState({
