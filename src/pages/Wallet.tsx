@@ -44,7 +44,7 @@ export function Wallet() {
                 </div>
                 <div>
                     <h1 className="text-3xl font-bold">Minha Carteira</h1>
-                    <p className="text-zinc-400">Detalhamento de alocação e ativos.</p>
+                    <p className="text-muted-foreground">Detalhamento de alocação e ativos.</p>
                 </div>
             </div>
 
@@ -64,7 +64,7 @@ export function Wallet() {
                     {summary?.grafico && summary.grafico.length > 0 ? (
                         <AllocationChart data={summary.grafico} />
                     ) : (
-                        <div className="text-center text-zinc-500 py-10 border border-dashed border-zinc-800 rounded-lg">
+                        <div className="text-center text-muted-foreground py-10 border border-dashed border-border rounded-lg">
                             <p className="mb-4">Sua carteira está vazia.</p>
                             {/* Se estiver vazia, mostra o botão aqui também para facilitar */}
                             <AddTransactionModal onSuccess={loadData} />
@@ -88,7 +88,7 @@ export function Wallet() {
             <Button
               type="button"
               variant="outline"
-              className="border-white-500/50 text-white-500 hover:bg-white-500/10 hover:text-white-400 hover:border-white-500"
+              className="border-white-500/50 text-card-foreground-500 hover:bg-white-500/10 hover:text-card-foreground-400 hover:border-white-500"
             >
               Voltar
             </Button>

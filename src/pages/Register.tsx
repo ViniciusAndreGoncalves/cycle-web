@@ -125,7 +125,7 @@ export function Register() {
         </div>
       )}
 
-      <Card className="w-full max-w-md bg-zinc-900 text-foreground border-border">
+      <Card className="w-full max-w-md bg-card text-foreground border-border">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">
             Crie sua Conta
@@ -147,7 +147,7 @@ export function Register() {
                       <Input
                         placeholder="Seu nome"
                         {...field}
-                        className="bg-zinc-950 border-zinc-800 focus-visible:ring-emerald-600"
+                        className="text-muted-foreground"
                       />
                     </FormControl>
                     <FormMessage className="text-red-400" />
@@ -165,7 +165,7 @@ export function Register() {
                       <Input
                         placeholder="exemplo@email.com"
                         {...field}
-                        className="bg-zinc-950 border-zinc-800 focus-visible:ring-emerald-600"
+                        className="text-muted-foreground"
                       />
                     </FormControl>
                     <FormMessage className="text-red-400" />
@@ -184,7 +184,7 @@ export function Register() {
                       placeholder="Mínimo 6 caracteres"
                         type="password"
                         {...field}
-                        className="bg-zinc-950 border-zinc-800 focus-visible:ring-emerald-600"
+                        className="text-muted-foreground"
                       />
                     </FormControl>
                     <FormMessage className="text-red-400" />
@@ -202,7 +202,7 @@ export function Register() {
                       <Input
                         type="password"
                         {...field}
-                        className="bg-zinc-950 border-zinc-800 focus-visible:ring-emerald-600"
+                        className="text-muted-foreground"
                       />
                     </FormControl>
                     <FormMessage className="text-red-400" />

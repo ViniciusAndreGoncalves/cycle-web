@@ -105,7 +105,7 @@ export function Login() {
         </div>
       )}
 
-      <Card className="w-full max-w-md bg-zinc-900 text-foreground border-border">
+      <Card className="w-full max-w-md bg-card text-foreground border-border">
         <CardHeader>
           <CardTitle className="text-2xl font-bold text-center">
             Acesse sua Conta
@@ -117,17 +117,17 @@ export function Login() {
         <CardContent>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-              <FormField
+              <FormField 
                 control={form.control}
                 name="email"
                 render={({ field }) => (
-                  <FormItem>
+                  <FormItem >
                     <FormLabel>E-mail</FormLabel>
                     <FormControl>
-                      <Input
+                      <Input 
                         placeholder="exemplo@email.com"
                         {...field}
-                        className="bg-zinc-950 border-zinc-800 focus-visible:ring-emerald-600"
+                        className="text-muted-foreground"
                       />
                     </FormControl>
                     <FormMessage className="text-red-400" />
@@ -154,7 +154,7 @@ export function Login() {
                       <Input
                         type="password"
                         {...field}
-                        className="bg-zinc-950 border-zinc-800 focus-visible:ring-emerald-600"
+                        className="text-muted-foreground"
                       />
                     </FormControl>
                     <FormMessage className="text-red-400" />
@@ -178,7 +178,7 @@ export function Login() {
                 {/* 2. Botão CADASTRAR */}
                 <Button
                   type="submit"
-                  className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold"
+                  className="bg-emerald-600 hover:bg-emerald-700 text-card-foreground font-bold"
                   disabled={isLoading}
                 >
                   {isLoading ? (

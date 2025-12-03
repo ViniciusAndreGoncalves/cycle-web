@@ -22,12 +22,12 @@ export function AllocationChart({ data }: AllocationChartProps) {
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       return (
-        <div className="bg-zinc-900 border border-zinc-700 p-2 rounded-md shadow-lg">
-          <p className="text-zinc-100 font-bold">{payload[0].name}</p>
+        <div className="bg-popover border border-border p-2 rounded-md shadow-lg">
+          <p className="text-popover-foreground font-bold">{payload[0].name}</p>
           <p className="text-emerald-500 text-sm">
             {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(payload[0].value)}
           </p>
-          <p className="text-zinc-400 text-xs">{payload[0].payload.percentage}% da carteira</p>
+          <p className="text-muted-foreground text-xs">{payload[0].payload.percentage}% da carteira</p>
         </div>
       );
     }
@@ -35,13 +35,13 @@ export function AllocationChart({ data }: AllocationChartProps) {
   };
 
   return (
-    <Card className="bg-zinc-900 border-zinc-800 flex flex-col h-full">
+    <Card className="bg-card border-border flex flex-col h-full w-full">
       <CardHeader className="pb-0">
-        <CardTitle className="text-zinc-400 text-sm font-medium uppercase tracking-wider">
+        <CardTitle className="text-muted-foreground text-sm font-medium uppercase tracking-wider">
             Alocação por Categoria
         </CardTitle>
       </CardHeader>
-      <CardContent className="flex-1 flex flex-col md:flex-row items-center justify-center gap-4">
+      <CardContent className="flex-1 flex flex-col md:flex-row items-center justify-center gap-4 min-h-[300px]">
         
         {/* LADO ESQUERDO: O GRÁFICO */}
         <div className="w-full h-[250px] md:w-1/2">
@@ -76,15 +76,15 @@ export function AllocationChart({ data }: AllocationChartProps) {
                             className="w-3 h-3 rounded-full" 
                             style={{ backgroundColor: item.fill || COLORS[index] }} 
                         />
-                        <span className="text-zinc-300 text-sm group-hover:text-white transition-colors">
+                        <span className="text-muted-foreground text-sm group-hover:text-foreground transition-colors">
                             {item.name}
                         </span>
                     </div>
                     <div className="text-right">
-                        <div className="text-white font-medium text-sm">
+                        <div className="text-card-foreground font-medium text-sm">
                             {item.percentage}%
                         </div>
-                        <div className="text-zinc-500 text-xs">
+                        <div className="text-muted-foreground text-xs">
                              {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(item.value)}
                         </div>
                     </div>

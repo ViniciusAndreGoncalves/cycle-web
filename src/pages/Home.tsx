@@ -52,9 +52,9 @@ export function Home() {
         <section className="grid gap-6 grid-cols-1 md:grid-cols-2">
           
           {/* BLOCO: CARTEIRA */}          
-          <Card className="bg-zinc-900 border-border bg-gradient-to-br from-zinc-900 to-emerald-950/30 flex flex-col justify-center items-center">
+          <Card className="bg-card border-border bg-gradient-to-br from-zinc-900 to-emerald-950/30 flex flex-col justify-center items-center">
             <CardHeader className="text-center pb-2">
-              <CardTitle className="text-white text-xl">
+              <CardTitle className="text-card-foreground text-xl">
                 Sua Carteira Inteligente
               </CardTitle>
             </CardHeader>
@@ -67,7 +67,7 @@ export function Home() {
               {/* BOTÃO 2: CARD LATERAL */}
               <Button
                 size="lg"
-                className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-full min-w-[200px]"
+                className="bg-emerald-600 hover:bg-emerald-700 text-card-foreground font-bold rounded-full min-w-[200px]"
                 onClick={handleCreateWallet} // <--- Ação Aqui também
               >
                 {isAuthenticated ? "Acessar Carteira" : "Criar Minha Carteira"}
@@ -76,23 +76,23 @@ export function Home() {
           </Card>
 
           {/* BLOCO: Maiores Altas */}
-          <Card className="bg-zinc-900 border-zinc-800">
+          <Card className="bg-card border-border">
         <CardHeader className="flex flex-row items-center justify-between pb-2">
-          <CardTitle className="text-sm font-medium text-zinc-400">
+          <CardTitle className="mb-4 text-sm font-medium text-zinc-500 uppercase tracking-widest">
             Destaques B3
           </CardTitle>
           <TrendingUp className="h-4 w-4 text-emerald-500" />
         </CardHeader>
         <CardContent>
           {loading ? (
-             <p className="text-zinc-500 text-sm">Carregando...</p>
+             <p className="text-card-foreground text-sm">Carregando...</p>
           ) : (
               <div className="space-y-4">
                 {/* Pega as 3 primeiras ações */}
-                {stocks.slice(0, 3).map((stock: any) => (
+                {stocks.slice(0, 10).map((stock: any) => (
                     <div key={stock.symbol} className="flex items-center justify-between">
-                    <span className="font-bold text-white">{stock.symbol}</span>
-                    <div className="flex items-center text-zinc-200 text-sm">
+                    <span className="font-bold text-card-foreground">{stock.symbol}</span>
+                    <div className="font-bold flex items-center text-card-foreground text-sm">
                         {/* Formata BRL sempre pois B3 é em Reais */}
                         {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(stock.price)}
                     </div>
@@ -104,7 +104,7 @@ export function Home() {
       </Card>
 
           {/* BLOCO: DADOS CRIPTOS */}
-          <Card className="bg-zinc-900 border-border md:col-span-2">
+          <Card className="bg-card border-border md:col-span-2">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="mb-4 text-sm font-medium text-zinc-500 uppercase tracking-widest">
                 Criptos
@@ -132,7 +132,7 @@ export function Home() {
                         />
                         <div className="flex flex-col min-w-0">
                           { /* Nome da Cripto */}
-                          <span className="font-bold text-white uppercase text-xs md:text-sm">
+                          <span className="font-bold text-card-foreground uppercase text-xs md:text-sm">
                             {coin.symbol}
                           </span>
                           <span className="text-[10px] md:text-xs text-zinc-500 capitalize truncate max-w-[70px] md:max-w-[120px]">
@@ -145,7 +145,7 @@ export function Home() {
                       <div className="flex flex-col items-end gap-0.5 md:gap-1 flex-shrink-0">
                         
                         {/* AQUI ESTÁ O PREÇO */}
-                        <span className="text-xs md:text-sm font-bold text-white whitespace-nowrap">
+                        <span className="text-xs md:text-sm font-bold text-card-foreground whitespace-nowrap">
                           {coin.current_price.toLocaleString(
                             currency === "brl" ? "pt-BR" : "en-US",
                             {
@@ -181,9 +181,9 @@ export function Home() {
           {/* CARD DE VÍDEO DO YOUTUBE */}
           {/* col-span-full em celular, mas ocupa 1 espaço no PC. 
               Se quiser maior, use md:col-span-2 */}
-          <Card className="bg-zinc-900 border-border overflow-hidden mt-8 mb-16">
+          <Card className="bg-card border-border overflow-hidden mt-8 mb-16">
             <CardHeader className="pb-2">
-              <CardTitle className="text-white flex justify-center items-center mt-0 mb-4">
+              <CardTitle className="text-card-foreground flex justify-center items-center mt-0 mb-4">
                 📺 Aprenda a Investir
               </CardTitle>
             </CardHeader>
