@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z } from "zod"
@@ -32,9 +32,6 @@ const formSchema = z.object({
   preco_unitario: z.coerce.number().nonnegative("O preço não pode ser negativo"),
   data_movimentacao: z.string().min(1, "Data é obrigatória"),
 })
-
-// Extraindo o tipo do schema para usar no onSubmit
-type FormValues = z.infer<typeof formSchema>
 
 interface AddTransactionModalProps {
   onSuccess: () => void 

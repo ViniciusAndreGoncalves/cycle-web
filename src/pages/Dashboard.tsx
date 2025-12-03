@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Navbar } from "@/components/ui/Navbar";
+import { Navbar } from "@/components/ui/navbar";
 import { useAuth } from "@/hooks/useAuth";
 import { api } from "@/lib/axios";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
