@@ -11,7 +11,7 @@ export function BrandLogo() {
       />
 
       {/* TEXTO */}
-      {/* Usei text-3xl para destaque. Na navbar é text-xl. Ajuste conforme seu gosto. */}
+      {/* Usei text-3xl para destaque. Na navbar é text-xl */}
       <span className="text-3xl font-bold text-foreground">
         CY<span className="text-emerald-500">CLE</span>
       </span>

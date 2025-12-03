@@ -10,20 +10,12 @@ import {
 } from "@/components/ui/carousel"
 import { ArrowUpRight, ArrowDownRight, Minus } from "lucide-react"
 
-// Dados falsos para simular a API
-const staticStocks = [
-  { symbol: "PETR4", name: "Petrobras", price: 36.50, change: 2.5},
-  { symbol: "VALE3", name: "Vale", price: 62.10, change: -1.2 },
-  { symbol: "ITUB4", name: "Itaú", price: 33.20, change: 0.5 },
-  { symbol: "MGLU3", name: "Magalu", price: 1.80, change: -4.0 },
-  { symbol: "WEGE3", name: "Weg", price: 40.00, change: 0.0 },
-]
-
 interface MarketCarouselProps {
   cryptos?: any[]; // Interrogação protege caso esteja vazio as Criptos
+  stocks?: any[];
 }
 
-export function MarketCarousel({ cryptos = [] }: MarketCarouselProps) {
+export function MarketCarousel({ cryptos = [], stocks = [] }: MarketCarouselProps) {
   // Configuração do Autoplay (Delay de 3 segundos)
   const plugin = React.useRef(
     Autoplay({ delay: 3000, stopOnInteraction: true })
@@ -37,7 +29,11 @@ export function MarketCarousel({ cryptos = [] }: MarketCarouselProps) {
     isCrypto: true // Indica que é cripto (Marcador extra)
   }))
 
-  const displayData = [...staticStocks, ...formattedCryptos]
+  const displayData = [...stocks, ...formattedCryptos]
+
+  if (displayData.length === 0) {
+    return <div className="text-center text-zinc-500 py-4">Carregando dados de mercado...</div>
+  }
 
   return (
     <div className="w-full px-4 md:px-10"> {/* Padding ajustado para mobile */}
@@ -54,17 +50,16 @@ export function MarketCarousel({ cryptos = [] }: MarketCarouselProps) {
             // Ajuste responsivo: no celular (padrão) ocupa 60%, em tablet 1/3, em PC 1/5
             <CarouselItem key={index} className="basis-[60%] sm:basis-1/2 md:basis-1/3 lg:basis-1/5 pl-2 md:pl-4">
               <div className="p-1">
-                <Card className="bg-zinc-900 border-zinc-800">
-                  {/* AQUI ESTÁ A CORREÇÃO PRINCIPAL NO CSS 👇 */}
+                <Card className="bg-card border-border">                  
                   <CardContent className="flex flex-col items-center justify-between p-3 h-[120px]"> 
                     
                     {/* 1. Título e Nome (Parte de Cima) */}
                     <div className="flex flex-col items-center w-full">
-                      <span className="text-base md:text-lg font-bold text-white">
+                      <span className="text-base md:text-lg font-bold text-card-foreground">
                         {asset.symbol}
                       </span>
                       {/* Truncate corta o texto se for muito longo (Ex: "Matic Networ...") */}
-                      <span className="text-[10px] md:text-xs text-zinc-400 truncate w-full text-center max-w-[120px]">
+                      <span className="text-[10px] md:text-xs text-muted-foreground truncate w-full text-center max-w-[120px]">
                         {asset.name}
                       </span>
                     </div>
@@ -72,7 +67,7 @@ export function MarketCarousel({ cryptos = [] }: MarketCarouselProps) {
                     {/* 2. Preço e Variação (Parte de Baixo) */}
                     <div className="flex flex-col items-center gap-1 w-full">
                       {/* whitespace-nowrap IMPEDE que o preço quebre linha e suba em cima do título */}
-                      <span className="text-sm md:text-base font-medium text-zinc-200 whitespace-nowrap">
+                      <span className="text-sm md:text-base font-medium text-card-foreground whitespace-nowrap">
                         {Number(asset.price).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}
                       </span>
                       

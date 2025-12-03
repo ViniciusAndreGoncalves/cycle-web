@@ -3,13 +3,15 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpRight, ArrowDownRight, TrendingUp } from "lucide-react";
 import { Navbar } from "@/components/ui/Navbar";
 import { MarketCarousel } from "@/components/market-carousel";
-import { useCryptoData } from "@/hooks/useCryptoData";
+import { useMarketData } from "@/hooks/useMarketData";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import { useCurrency } from "@/components/currency-provider";
 
 export function Home() {
-  const { data: criptos, loading, currency } = useCryptoData();
-  const { isAuthenticated } = useAuth(); // <--- 3. Pegue o estado de login
+  const { stocks, cryptos, loading } = useMarketData();
+  const { currency } = useCurrency();
+  const { isAuthenticated } = useAuth(); // Pega o estado de login
   const navigate = useNavigate();
 
   function handleCreateWallet() {
@@ -31,7 +33,7 @@ export function Home() {
         <p className="mb-4 text-sm font-medium text-zinc-500 uppercase tracking-widest">
           Mercado em Tempo Real
         </p>
-        <MarketCarousel cryptos={loading ? [] : criptos} />
+        <MarketCarousel cryptos={loading ? [] : cryptos} stocks={loading ? [] : stocks} />
       </div>
 
       {/* Seção Hero (Boas vindas) */}
@@ -44,12 +46,6 @@ export function Home() {
             Acompanhe o mercado em tempo real e gerencie sua carteira em um só
             lugar.
           </p>
-          <Button
-            size="lg"
-            className="bg-emerald-600 hover:bg-emerald-700 rounded-full"
-          >
-            Começar Agora
-          </Button>
         </section>
 
         {/* Seção de Destaques (Simulação Visual) */}
@@ -81,33 +77,31 @@ export function Home() {
 
           {/* BLOCO: Maiores Altas */}
           <Card className="bg-zinc-900 border-zinc-800">
-            <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="mb-4 text-sm font-medium text-zinc-500 uppercase tracking-widest">
-                Maiores Altas (B3)
-              </CardTitle>
-              <TrendingUp className="h-4 w-4 text-emerald-500" />
-            </CardHeader>
-            <CardContent>
+        <CardHeader className="flex flex-row items-center justify-between pb-2">
+          <CardTitle className="text-sm font-medium text-zinc-400">
+            Destaques B3
+          </CardTitle>
+          <TrendingUp className="h-4 w-4 text-emerald-500" />
+        </CardHeader>
+        <CardContent>
+          {loading ? (
+             <p className="text-zinc-500 text-sm">Carregando...</p>
+          ) : (
               <div className="space-y-4">
-                {/* Ativo Fake 1 */}
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-white">PETR4</span>
-                  <div className="flex items-center text-emerald-500">
-                    <ArrowUpRight className="mr-1 h-4 w-4" />
-                    +2.5%
-                  </div>
-                </div>
-                {/* Ativo Fake 2 */}
-                <div className="flex items-center justify-between">
-                  <span className="font-bold text-white">VALE3</span>
-                  <div className="flex items-center text-emerald-500">
-                    <ArrowUpRight className="mr-1 h-4 w-4" />
-                    +1.2%
-                  </div>
-                </div>
+                {/* Pega as 3 primeiras ações */}
+                {stocks.slice(0, 3).map((stock: any) => (
+                    <div key={stock.symbol} className="flex items-center justify-between">
+                    <span className="font-bold text-white">{stock.symbol}</span>
+                    <div className="flex items-center text-zinc-200 text-sm">
+                        {/* Formata BRL sempre pois B3 é em Reais */}
+                        {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(stock.price)}
+                    </div>
+                    </div>
+                ))}
               </div>
-            </CardContent>
-          </Card>
+          )}
+        </CardContent>
+      </Card>
 
           {/* BLOCO: DADOS CRIPTOS */}
           <Card className="bg-zinc-900 border-border md:col-span-2">
@@ -123,7 +117,7 @@ export function Home() {
                 <p className="text-zinc-500 text-sm">Carregando ...</p>
               ) : (
                 <div className="grid grid-cols-2 gap-4">
-                  {criptos.map((coin: any) => (
+                  {cryptos.map((coin: any) => (
                     <div
                       key={coin.id}
                       className="flex items-center justify-between p-2 hover:bg-zinc-800/50 rounded-lg transition-colors"
