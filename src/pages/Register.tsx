@@ -80,7 +80,7 @@ export function Register() {
 
       console.log("Sucesso ao cadastrar");
 
-      // 2. Salva o Token no LocalStorage (Crachá para entrar no sistema)
+      // 2. Salva o Token no LocalStorage (Crachá para entrar no sistema) e loga automaticamente
       login(response.data.user.name, response.data.token);
 
       // 3. Feedback visual

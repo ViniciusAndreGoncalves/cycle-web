@@ -4,9 +4,23 @@ import { ArrowUpRight, ArrowDownRight, TrendingUp } from "lucide-react";
 import { Navbar } from "@/components/ui/Navbar";
 import { MarketCarousel } from "@/components/market-carousel";
 import { useCryptoData } from "@/hooks/useCryptoData";
+import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 export function Home() {
   const { data: criptos, loading, currency } = useCryptoData();
+  const { isAuthenticated } = useAuth(); // <--- 3. Pegue o estado de login
+  const navigate = useNavigate();
+
+  function handleCreateWallet() {
+    if (isAuthenticated) {
+      // Se já tem conta, vai direto pro painel
+      navigate("/carteira");
+    } else {
+      // Se não tem, vai criar conta
+      navigate("/register");
+    }
+  }
 
   return (
     <div className="min-h-screen bg-background text-foreground">
@@ -41,7 +55,7 @@ export function Home() {
         {/* Seção de Destaques (Simulação Visual) */}
         <section className="grid gap-6 grid-cols-1 md:grid-cols-2">
           
-          {/* BLOCO: CARTEIRA */}
+          {/* BLOCO: CARTEIRA */}          
           <Card className="bg-zinc-900 border-border bg-gradient-to-br from-zinc-900 to-emerald-950/30 flex flex-col justify-center items-center">
             <CardHeader className="text-center pb-2">
               <CardTitle className="text-white text-xl">
@@ -50,18 +64,17 @@ export function Home() {
             </CardHeader>
             <CardContent className="flex flex-col items-center text-center">
               <p className="mb-6 text-zinc-400 max-w-xs">
-                {" "}
-                {/* max-w-xs ajuda o texto a quebrar bonito */}
                 Monitore seus dividendos e a evolução do seu patrimônio em um
                 gráfico unificado.
               </p>
-
-              {/* Removi o w-full e adicionei min-w para garantir um tamanho mínimo elegante */}
+              
+              {/* BOTÃO 2: CARD LATERAL */}
               <Button
                 size="lg"
                 className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-full min-w-[200px]"
+                onClick={handleCreateWallet} // <--- Ação Aqui também
               >
-                Criar Minha Carteira
+                {isAuthenticated ? "Acessar Carteira" : "Criar Minha Carteira"}
               </Button>
             </CardContent>
           </Card>
