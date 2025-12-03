@@ -35,9 +35,9 @@ export function AssetList({ assets }: AssetListProps) {
   }
 
   return (
-    <Card className="bg-zinc-900 border-zinc-800">
+    <Card className="bg-card border-border">
         <CardHeader>
-            <CardTitle className="text-zinc-400 text-sm font-medium uppercase tracking-wider flex items-center gap-2">
+            <CardTitle className="text-muted-foreground text-sm font-medium uppercase tracking-wider flex items-center gap-2">
                 <TrendingUp className="h-4 w-4" />
                 Meus Ativos Detalhados
             </CardTitle>
@@ -45,34 +45,34 @@ export function AssetList({ assets }: AssetListProps) {
         <CardContent>
             <Table>
                 <TableHeader>
-                    <TableRow className="border-zinc-800 hover:bg-transparent">
-                        <TableHead className="text-zinc-500">Ativo</TableHead>
-                        <TableHead className="text-zinc-500 text-right">Qtd.</TableHead>
-                        <TableHead className="text-zinc-500 text-right">Preço Médio</TableHead>
-                        <TableHead className="text-zinc-500 text-right">Preço Atual</TableHead>
-                        <TableHead className="text-zinc-500 text-right">Saldo</TableHead>
-                        <TableHead className="text-zinc-500 text-right">Rentabilidade</TableHead>
+                    <TableRow className="bg-card border-border hover:bg-transparent text-muted-foreground">
+                        <TableHead className="text-muted-foreground">Ativo</TableHead>
+                        <TableHead className="text-muted-foreground text-right">Qtd.</TableHead>
+                        <TableHead className="text-muted-foreground text-right">Preço Médio</TableHead>
+                        <TableHead className="text-muted-foreground text-right">Preço Atual</TableHead>
+                        <TableHead className="text-muted-foreground text-right">Saldo</TableHead>
+                        <TableHead className="text-muted-foreground text-right">Rentabilidade</TableHead>
                     </TableRow>
                 </TableHeader>
                 <TableBody>
                     {assets.map((asset) => (
-                        <TableRow key={asset.ticker} className="border-zinc-800 hover:bg-zinc-800/50">
+                        <TableRow key={asset.ticker} className="bg-card border-border hover:bg-muted/50 text-muted-foreground">
                             <TableCell>
                                 <div className="flex flex-col">
-                                    <span className="font-bold text-white">{asset.ticker}</span>
-                                    <span className="text-xs text-zinc-500">{asset.nome}</span>
+                                    <span className="font-bold text-card-foreground">{asset.ticker}</span>
+                                    <span className="text-xs text-muted-foreground">{asset.nome}</span>
                                 </div>
                             </TableCell>
-                            <TableCell className="text-right text-zinc-300 font-mono">
+                            <TableCell className="text-right text-muted-foreground font-mono">
                                 {formatQtd(asset.qtd)}
                             </TableCell>
-                            <TableCell className="text-right text-zinc-400">
+                            <TableCell className="text-right text-muted-foreground">
                                 {money(asset.preco_medio)}
                             </TableCell>
-                            <TableCell className="text-right text-white font-medium">
+                            <TableCell className="text-right text-muted-foreground font-medium">
                                 {money(asset.preco_atual)}
                             </TableCell>
-                            <TableCell className="text-right text-white font-bold">
+                            <TableCell className="text-right text-muted-foreground font-bold">
                                 {money(asset.saldo_atual)}
                             </TableCell>
                             <TableCell className="text-right">
