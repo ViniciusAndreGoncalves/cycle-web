@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Navbar } from "@/components/ui/Navbar";
+import { Navbar } from "@/components/ui/navbar";
 import { api } from "@/lib/axios";
 import { AllocationChart } from "@/components/dashboard/allocation-chart";
 import { AssetList } from "@/components/dashboard/asset-list";

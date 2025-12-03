@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, ArrowDownRight, TrendingUp } from "lucide-react";
-import { Navbar } from "@/components/ui/Navbar";
+import { Navbar } from "@/components/ui/navbar";
 import { MarketCarousel } from "@/components/market-carousel";
 import { useMarketData } from "@/hooks/useMarketData";
 import { useAuth } from "@/hooks/useAuth";
